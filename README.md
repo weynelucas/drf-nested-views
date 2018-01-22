@@ -1,3 +1,5 @@
+[![PyPi version](https://img.shields.io/pypi/v/drf-nested-views.svg)](https://pypi.python.org/pypi/drf-nested-views)
+
 # drf-nested-views
 A set of views to work with [drf-nested-routers](https://github.com/alanjds/drf-nested-routers)
 
@@ -69,7 +71,7 @@ Create your viewsets extending `ModelViewSet` or `ReadOnlyModelViewSet` from `dr
 ```python
 # views.py
 from rest_framework import viewsets
-from drf_nested_views import viewsets as drf_nested_views
+from drf_nested_views import viewsets as drf_nested_viewsets
 
 from .models import Domain, Nameserver
 from .serializers import DomainSerializer, NameserverSerializer
@@ -80,7 +82,7 @@ class DomainViewSet(viewsets.ModelViewSet):
     queryset = Domain.objects.all()
 
 
-class NameserverViewSet(drf_nested_views.ModelViewSet):
+class NameserverViewSet(drf_nested_viewsets.ModelViewSet):
     """
     ModelViewSet from drf_nested_views use `serializer_class`
     attribute to extract the queryset (if yor serializer is 
@@ -127,8 +129,8 @@ class CreateRetrieveDestroyViewSet(drf_nested_mixins.CreateModelMixin,
     pass
 ```
 
-### `GenericAPIView`
-The entire base logic of this library is inside the class `GenericAPIView` from `drf_nested_views.generics`. If you need another behaviour or logic to your views you can construct a base class, inherit from it.
+### GenericAPIView
+The entire base logic of this library is inside class `GenericAPIView` from `drf_nested_views.generics`. If you need another behaviour or logic to your views you can construct a base class, inherit from it.
 
 ```python
 from drf_nested_views.generics import GenericAPIView
