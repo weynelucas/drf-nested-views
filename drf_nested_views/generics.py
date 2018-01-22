@@ -1,5 +1,3 @@
-from django.utils.functional import cached_property
-
 from rest_framework.serializers import ModelSerializer
 from rest_framework import generics
 from rest_framework_nested.serializers import NestedHyperlinkedModelSerializer
