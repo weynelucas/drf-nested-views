@@ -90,7 +90,7 @@ class NameserverViewSet(drf_nested_views.ModelViewSet):
     serializer_class = NameserverSerializer
 ```
 
-Nested viewsets will use the `parent_lookup_kwargs` attribute from `NestedHyperlinkedModelSerializer` to perform all nested actions (list, retrieve, create, update, delete). If you not use a serilizer of this type in yor view, you must provide the attribute explicitly or override `get_parent_lookup_kwargs()` method.
+Nested viewsets will use the `parent_lookup_kwargs` attribute from `NestedHyperlinkedModelSerializer` to perform all nested actions (list, retrieve, create, update, delete). If you not use a serilizer of this type in yor view, you must provide the attribute explicitly or override `get_parent_lookup_kwargs()` method:
 
 ```python
 class NameserverViewSet(drf_nested_views.ReadOnlyModelViewSet):
@@ -106,3 +106,47 @@ class NameserverViewSet(drf_nested_views.ReadOnlyModelViewSet):
             'domain_pk': 'domain__pk',
         }
 ```
+
+## Advanced Usage
+### Customize viewsets
+To create a base viewset class with only certain operations, inherit from `GenericViewSet` from `drf_nested_views.viewsets`, and mixin the required actions from `drf_nested_views.mixins`:
+
+```python
+from drf_nested_views.viewsets import GenericViewSet
+from drf_nested_views import mixins as drf_nested_mixins
+
+class CreateRetrieveDestroyViewSet(drf_nested_mixins.CreateModelMixin,
+                                   drf_nested_mixins.RetrieveModelMixin,
+                                   drf_nested_mixins.DestroyModelMixin,
+                                   GenericViewSet):
+    """
+    A viewset that provides `retrieve`, `create`, and `destroy` actions.
+
+    To use it, override the class and set the `serializer_class` attribute.
+    """
+    pass
+```
+
+### `GenericAPIView`
+The entire base logic of this library is inside the class `GenericAPIView` from `drf_nested_views.generics`. If you need another behaviour or logic to your views you can construct a base class, inherit from it.
+
+```python
+from drf_nested_views.generics import GenericAPIView
+
+
+class CustomAPIView(GenericAPIView):
+    """
+    A base class to improve another behaviour for
+    nested resources
+    """
+    <statatement-1>
+    .
+    .
+    .
+    <statement-N>
+```
+
+`GenericAPIView` inherit from `GenericAPIView` of `rest_framework.generics` and overrides the methods `get_queryset()` and `filter_queryset()`. Besides override theese methods, another methods was added:
+
+* **`get_parent_lookup_kwargs`** - Returns the parent lookup kwargs, a dictionary that maps URL kwargs into object lookup properties.
+* **`get_parent_lookup`** - Returns the entire filter lookup for parent based on `parent_lookup_kwargs` and URL keyword arguments.
