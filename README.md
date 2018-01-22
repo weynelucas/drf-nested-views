@@ -153,4 +153,7 @@ class CustomAPIView(GenericAPIView):
 
 
 ## Notes
-* This library use the same name of [Django REST Framework](http://www.django-rest-framework.org/) for viewsets, generics and mixins classes. Keep this in mind when using both libraries within the same file and create and define aliases for imported modules.
+* This library use the same name of [Django REST Framework](http://www.django-rest-framework.org/) for viewsets, generics and mixins classes. Keep this in mind when using both libraries within the same file and define aliases for imported modules.
+
+## Release Notes
+* 1.0.0 - 22/01/2018 - First release
