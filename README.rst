@@ -1,7 +1,9 @@
 drf-nested-views
 ================
 
-A set of views to work with `drf-nested-routers`_
+A set of views to work with `drf-nested-routers`_.
+
+View the `full documentation on GitHub`_.
 
 Instalation
 -----------
@@ -99,17 +101,7 @@ nested resources behaviour:
         """
         serializer_class = NameserverSerializer
 
-Nested viewsets will use the ``parent_lookup_kwargs`` attribute from
-``NestedHyperlinkedModelSerializer`` to perform all nested actions
-(list, retrieve, create, update, delete). If you not use a serilizer of
-this type in yor view, you must provide the attribute explicitly or
-override ``get_parent_lookup_kwargs()`` method:
-
-\```python class
-NameserverViewSet(drf_nested_views.ReadOnlyModelViewSet):
-serializer_class = NameserverSerializer # is not a
-NestedHyperlinkedModelSerializer subclass parent_loo
-
 .. _drf-nested-routers: https://github.com/alanjds/drf-nested-routers
+.. _full documentation on GitHub: https://github.com/weynelucas/drf-nested-views/
 .. _Django: https://www.djangoproject.com/
 .. _Django REST Framework: http://www.django-rest-framework.org/

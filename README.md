@@ -153,6 +153,8 @@ class CustomAPIView(GenericAPIView):
 
 
 ## Notes
+* For questions about routes and serializers for nested resources, see the full documentation of [drf-nested-routers](https://github.com/alanjds/drf-nested-routers).
+
 * This library use the same name of [Django REST Framework](http://www.django-rest-framework.org/) for viewsets, generics and mixins classes. Keep this in mind when using both libraries within the same file and define aliases for imported modules.
 
 ## Release Notes
