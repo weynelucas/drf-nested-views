@@ -1,3 +1,5 @@
+[![PyPi version](https://img.shields.io/pypi/v/drf-nested-views.svg)](https://pypi.python.org/pypi/drf-nested-views)
+
 # drf-nested-views
 A set of views to work with [drf-nested-routers](https://github.com/alanjds/drf-nested-routers)
 
