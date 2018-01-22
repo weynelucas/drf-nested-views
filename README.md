@@ -48,20 +48,20 @@ from rest_framework_nested.serializers import NestedHyperlinkedModelSerializer
 
 
 class NameserverSerializer(NestedHyperlinkedModelSerializer):
-	parent_lookup_kwargs = {
-		'domain_pk': 'domain__pk',
-	}
-	class Meta:
-		model = Nameserver
-		fields = ('url', ...)
+    parent_lookup_kwargs = {
+        'domain_pk': 'domain__pk',
+    }
+    class Meta:
+        model = Nameserver
+        fields = ('url', ...)
 
 
 class DomainSerializer(HyperlinkedModelSerializer):
-	class Meta:
-		model = Domain
-		fields = (..., 'nameservers')
+    class Meta:
+        model = Domain
+	fields = (..., 'nameservers')
 
-	nameservers = NameserverSerializer(many=True, read_only=True)
+    nameservers = NameserverSerializer(many=True, read_only=True)
 ```
 
 Create your viewsets extending `ModelViewSet` or `ReadOnlyModelViewSet` from `drf_nested_views.viewsets` to improve nested resources behaviour:
@@ -95,13 +95,13 @@ Nested viewsets will use the `parent_lookup_kwargs` attribute from `NestedHyperl
 ```python
 class NameserverViewSet(drf_nested_views.ReadOnlyModelViewSet):
     parent_lookup_kwargs = {
-		'domain_pk': 'domain__pk',
+        'domain_pk': 'domain__pk',
     }
 
     ## OR ##
 
     def get_parent_lookup_kwargs(self):
         return {
-		    'domain_pk': 'domain__pk',
+            'domain_pk': 'domain__pk',
         }
 ```
