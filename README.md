@@ -129,7 +129,7 @@ class CreateRetrieveDestroyViewSet(drf_nested_mixins.CreateModelMixin,
     pass
 ```
 
-### `GenericAPIView`
+### GenericAPIView
 The entire base logic of this library is inside the class `GenericAPIView` from `drf_nested_views.generics`. If you need another behaviour or logic to your views you can construct a base class, inherit from it.
 
 ```python
