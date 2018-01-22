@@ -3,7 +3,7 @@ drf-nested-views
 
 A set of views to work with `drf-nested-routers`_.
 
-View the `full documentation on GitHub`_.
+View the full documentation `here`_.
 
 Instalation
 -----------
@@ -102,6 +102,6 @@ nested resources behaviour:
         serializer_class = NameserverSerializer
 
 .. _drf-nested-routers: https://github.com/alanjds/drf-nested-routers
-.. _full documentation on GitHub: https://github.com/weynelucas/drf-nested-views/
+.. _here: https://github.com/weynelucas/drf-nested-views/
 .. _Django: https://www.djangoproject.com/
 .. _Django REST Framework: http://www.django-rest-framework.org/
