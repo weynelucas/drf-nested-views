@@ -94,6 +94,7 @@ Nested viewsets will use the `parent_lookup_kwargs` attribute from `NestedHyperl
 
 ```python
 class NameserverViewSet(drf_nested_views.ReadOnlyModelViewSet):
+    serializer_class = NameserverSerializer # is not a NestedHyperlinkedModelSerializer subclass
     parent_lookup_kwargs = {
         'domain_pk': 'domain__pk',
     }
