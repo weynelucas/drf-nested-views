@@ -150,3 +150,7 @@ class CustomAPIView(GenericAPIView):
 
 * **`get_parent_lookup_kwargs`** - Returns the parent lookup kwargs, a dictionary that maps URL kwargs into object lookup properties.
 * **`get_parent_lookup`** - Returns the entire filter lookup for parent based on `parent_lookup_kwargs` and URL keyword arguments.
+
+
+## Notes
+* This library use the same name of [Django REST Framework](http://www.django-rest-framework.org/) for viewsets, generics and mixins classes. Keep this in mind when using both libraries within the same file and create and define aliases for imported modules.
