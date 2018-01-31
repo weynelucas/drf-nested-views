@@ -16,7 +16,7 @@ def to_related_lookup(base_model, lookup):
         from recipients.models import Recipient
 
         relatd_lookup = to_related_lookup(
-            model=Recipient, 
+            base_model=Recipient, 
             lookup={ 'mail_drop_pk': 1, 'mail_drop__client_pk': 5 } 
         )
 
@@ -26,7 +26,7 @@ def to_related_lookup(base_model, lookup):
     for k, v in lookup.items():
         # Get related pk field
         try: 
-            field = model._meta.get_field(k)
+            field = base_model._meta.get_field(k)
             if isinstance(field, RelatedField):
                 k = field.related_model._meta.pk.name
         except FieldDoesNotExist:
