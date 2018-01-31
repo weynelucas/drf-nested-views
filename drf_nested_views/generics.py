@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework.serializers import ModelSerializer
 from rest_framework import generics
 from rest_framework_nested.serializers import NestedHyperlinkedModelSerializer
