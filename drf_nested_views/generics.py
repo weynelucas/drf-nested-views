@@ -2,6 +2,8 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework import generics
 from rest_framework_nested.serializers import NestedHyperlinkedModelSerializer
 
+from .utils import to_related_lookup
+
 
 class GenericAPIView(generics.GenericAPIView):
     """
@@ -56,6 +58,40 @@ class GenericAPIView(generics.GenericAPIView):
                 "have any match on URL keyword arguments."
                 % str(error)
             )
+    
+    def get_parent_object(self):
+        """
+        Returns the parent object the view is displaying. 
+
+        You may want override this if you need to provide non-standart
+        queryset lookup.
+        """
+        model = self.get_queryset().model
+        parent_lookup = self.get_parent_lookup()
+
+        related_fields = list(set(
+            [ k.split('__', 1)[0] for k in parent_lookup.keys() ]
+        ))
+
+        assert len(related_fields) == 1, (
+            'Expected only one related field from `get_parent_lookup()`.' 
+            'Got %s'  % 
+            (len(related_fields))
+        )
+
+        related_field = related_fields[0]
+        related_lookup = to_related_lookup(model, parent_lookup)
+        related_model = model._meta.get_field(related_field).related_model
+
+        assert related_model is not None, (
+            "%s has no related field named '%s'." %
+            (model.__name__, related_field)
+        )
+    
+        try:
+            return related_model.objects.get(**related_lookup)
+        except related_model.DoesNotExist:
+            raise Http404
 
     def filter_queryset(self, queryset):
         """
@@ -65,5 +101,10 @@ class GenericAPIView(generics.GenericAPIView):
         After filter backend process, filter it with 
         `parent_lookup_kwargs` attribute.
         """
-        queryset = super(GenericAPIView, self).filter_queryset(queryset)
-        return queryset.filter(**self.get_parent_lookup())
+
+        # Find parent resource object and raises 404 when not found
+        self.get_parent_object()
+
+        return super(GenericAPIView, self)       \
+            .filter_queryset(queryset)           \
+            .filter(**self.get_parent_lookup())
