@@ -50,7 +50,8 @@ def get_view_queryset(view):
     subclass. 
     """
     assert isinstance(view, GenericAPIView), (
-        "Argument `view` must be a GenericAPIView subclass"
+        "'%s' must be an instance of GenericAPIView." %
+        (str(view))
     )
 
     get_from_super = (
