@@ -1,5 +1,7 @@
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models.fields.related import RelatedField
+from rest_framework.serializers import ModelSerializer
+from rest_framework.generics import GenericAPIView
 
 
 def to_related_lookup(base_model, lookup):
@@ -36,3 +38,23 @@ def to_related_lookup(base_model, lookup):
         normalized_key = k.split('__', 1)[-1]
         normalized[normalized_key] = v
     return normalized
+
+
+def get_view_queryset(view):
+    """
+    Get the list of items for this view from `queryset` or
+    `serializer_class`.
+    """
+    assert isinstance(view, GenericAPIView), (
+        "Argument `view` must be a GenericAPIView subclass"
+    )
+
+    can_get_from_super = (
+        view.queryset is not None and
+        issubclass(view.serializer_class, ModelSerializer) is not True
+    )
+
+    if can_get_from_super:
+        return super(view.__class__, view).get_queryset()
+    
+    return view.serializer_class
