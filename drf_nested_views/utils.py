@@ -49,12 +49,12 @@ def get_view_queryset(view):
         "Argument `view` must be a GenericAPIView subclass"
     )
 
-    can_get_from_super = (
-        view.queryset is not None and
+    get_from_super = (
+        view.queryset is not None or
         issubclass(view.serializer_class, ModelSerializer) is not True
     )
 
-    if can_get_from_super:
+    if get_from_super:
         return super(view.__class__, view).get_queryset()
     
-    return view.serializer_class
+    return view.serializer_class.Meta.model.objects.all()
