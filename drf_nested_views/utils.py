@@ -1,5 +1,7 @@
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models.fields.related import RelatedField
+from rest_framework.serializers import ModelSerializer
+from rest_framework.generics import GenericAPIView
 
 
 def to_related_lookup(base_model, lookup):
