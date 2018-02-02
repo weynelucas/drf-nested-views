@@ -38,28 +38,3 @@ def to_related_lookup(base_model, lookup):
         normalized_key = k.split('__', 1)[-1]
         normalized[normalized_key] = v
     return normalized
-
-
-def get_view_queryset(view):
-    """
-    Get the list of items for this view from `queryset` or
-    `serializer_class`.
-
-    When the view not provide a `queryset`, the list of items will be 
-    retrieved through `serializer_class`, if it is a ModelSerializer
-    subclass. 
-    """
-    assert isinstance(view, GenericAPIView), (
-        "'%s' must be an instance of GenericAPIView." %
-        (str(view))
-    )
-
-    get_from_super = (
-        view.queryset is not None or
-        issubclass(view.serializer_class, ModelSerializer) is not True
-    )
-
-    if get_from_super:
-        return super(view.__class__, view).get_queryset()
-    
-    return view.serializer_class.Meta.model.objects.all()

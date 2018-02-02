@@ -5,26 +5,39 @@ from rest_framework_nested.serializers import NestedHyperlinkedModelSerializer
 
 from .utils import (
     to_related_lookup,
-    get_view_queryset,
 )
 
 
-class GenericAPIView(generics.GenericAPIView):
+class APIViewMixin(object):
+    """
+    Overrides `.get_queryset()` to get the list of items
+    for a view.
+    """
+    def get_queryset(self):
+        """
+        Get the list of items for this view from `queryset` or
+        `serializer_class`.
+
+        When the view not provide a `queryset`, the list of items will be 
+        retrieved through `serializer_class`, if it is a ModelSerializer
+        subclass. 
+        """
+        get_from_super = (
+            self.queryset is not None or
+            issubclass(self.serializer_class, ModelSerializer) is not True
+        )
+
+        if get_from_super:
+            return super(APIViewMixin, self).get_queryset()
+        
+        return self.serializer_class.Meta.model.objects.all()
+
+
+class GenericAPIView(APIViewMixin, generics.GenericAPIView):
     """
     Base class for all other generic views that are nested.
     """
     parent_lookup_kwargs = {}
-
-    def get_queryset(self):
-        """
-        Get the list of items for this view.
-        This must be an iterable, and may be a queryset.
-
-        If `serializer_class` attribute is a ModelSerializer 
-        subclass, the queryset will be retrieved through 
-        `model` attribute.
-        """
-        return get_view_queryset(self)
 
     def get_parent_lookup_kwargs(self):
         """
