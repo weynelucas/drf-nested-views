@@ -44,6 +44,10 @@ def get_view_queryset(view):
     """
     Get the list of items for this view from `queryset` or
     `serializer_class`.
+
+    When the view not provide a `queryset`, the list of items will be 
+    retrieved through `serializer_class`, if it is a ModelSerializer
+    subclass. 
     """
     assert isinstance(view, GenericAPIView), (
         "Argument `view` must be a GenericAPIView subclass"

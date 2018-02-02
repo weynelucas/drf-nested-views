@@ -3,7 +3,10 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework import generics
 from rest_framework_nested.serializers import NestedHyperlinkedModelSerializer
 
-from .utils import to_related_lookup
+from .utils import (
+    to_related_lookup,
+    get_view_queryset,
+)
 
 
 class GenericAPIView(generics.GenericAPIView):
@@ -21,9 +24,7 @@ class GenericAPIView(generics.GenericAPIView):
         subclass, the queryset will be retrieved through 
         `model` attribute.
         """
-        if issubclass(self.serializer_class, ModelSerializer):
-            return self.serializer_class.Meta.model.objects.all()
-        return super(GenericAPIView, self).get_queryset()
+        return get_view_queryset(self)
 
     def get_parent_lookup_kwargs(self):
         """
