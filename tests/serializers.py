@@ -38,5 +38,5 @@ class MailRecipientSerializer(NestedHyperlinkedModelSerializer):
     class Meta:
         model = MailRecipient
         extra_kwargs = {
-            'url': {'view_name': 'mailrecipient-detail', 'lookup_field': 'pk'},
+            'url': {'view_name': 'recipient-detail', 'lookup_field': 'pk'},
         }
