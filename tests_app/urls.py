@@ -22,7 +22,7 @@ client_router = NestedDefaultRouter(router, r'clients', lookup='client')
 client_router.register(r'maildrops', views.MailDropViewSet, base_name='maildrop')
 
 # MailDrop nested URLs
-maildrop_router = NestedDefaultRouter(router, r'maildrops', lookup='maildrop')
+maildrop_router = NestedDefaultRouter(client_router, r'maildrops', lookup='maildrop')
 maildrop_router.register(r'recipients', views.MailRecipientViewSet, base_name='recipient') 
 
 
