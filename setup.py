@@ -1,9 +1,9 @@
 """
 A setuptools for drf-nested-views
 """
+import os
 from setuptools import setup, find_packages
 from codecs import open
-from os import path
 
 
 with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
