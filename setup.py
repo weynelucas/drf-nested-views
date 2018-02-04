@@ -6,18 +6,15 @@ from codecs import open
 from os import path
 
 
-here = path.abspath(path.dirname(__file__))
-
-
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
+    README = readme.read()
 
 
 setup(
     name='drf-nested-views', 
     version='1.0.0', 
     description='A set of views to work with drf-nested-routers',
-    long_description=long_description,
+    long_description=README,
     url='https://github.com/weynelucas/drf-nested-views/', 
     download_url="https://github.com/weynelucas/drf-nested-views/archive/1.0.0.tar.gz",
     author='Lucas Weyne',
