@@ -3,6 +3,8 @@ from django.db import models
 
 class Client(models.Model):
     name = models.CharField(null=False, blank=False)
+    created_at = models.DateTimeField(null=False, auto_now_add=True)
+    updated_at = models.DateTimeField(null=False, auto_now=True)
 
     class Meta:
         ordering = ['name']
@@ -26,4 +28,3 @@ class MailRecipient(models.Model):
 
     class Meta:
         ordering = ['created_at']
-    
