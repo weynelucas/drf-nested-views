@@ -59,7 +59,6 @@ class UtilsTestCase(TestCase):
             maildrop,
         ]
 
-
     def test_to_related_lookup(self):
         for data in self.lookups:
             result = to_related_lookup(data['model'], data['lookup'])
