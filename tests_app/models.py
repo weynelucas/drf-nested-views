@@ -14,7 +14,7 @@ class MailDrop(models.Model):
     name = models.CharField(max_length=125, null=False, blank=False)
     created_at = models.DateTimeField(null=False, auto_now_add=True)
     updated_at = models.DateTimeField(null=False, auto_now=True)
-    client = models.ForeignKey('Client', on_delete=models.CASCADE)
+    client = models.ForeignKey('Client', on_delete=models.CASCADE, related_name='maildrops')
 
     class Meta:
         ordering = ['created_at']
@@ -24,7 +24,7 @@ class MailRecipient(models.Model):
     name = models.CharField(max_length=125, null=False, blank=False)
     created_at = models.DateTimeField(null=False, auto_now_add=True)
     updated_at = models.DateTimeField(null=False, auto_now=True)
-    maildrop = models.ForeignKey('MailDrop', on_delete=models.CASCADE)
+    maildrop = models.ForeignKey('MailDrop', on_delete=models.CASCADE, related_name='recipients')
 
     class Meta:
         ordering = ['created_at']

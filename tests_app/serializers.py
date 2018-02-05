@@ -18,7 +18,7 @@ class ClientSerializer(HyperlinkedModelSerializer):
 
 class MailDropSerializer(NestedHyperlinkedModelSerializer):
     parent_lookup_kwargs = {
-        'client_pk': 'client__pk'
+        'client_pk': 'client_id'
     }
 
     class Meta:
@@ -31,12 +31,13 @@ class MailDropSerializer(NestedHyperlinkedModelSerializer):
 
 class MailRecipientSerializer(NestedHyperlinkedModelSerializer):
     parent_lookup_kwargs = {
-        'maildrop_pk': 'maildrop__pk',
-        'client_pk': 'maildrop__client__pk',
+        'maildrop_pk': 'maildrop_id',
+        'client_pk': 'maildrop__client_id',
     }
 
     class Meta:
         model = MailRecipient
+        fields = default_fields
         extra_kwargs = {
             'url': {'view_name': 'recipient-detail', 'lookup_field': 'pk'},
         }
